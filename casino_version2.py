@@ -5,12 +5,10 @@ Course: CSC-249-0001
 Purpose: Simulating a gambling game experience using data structures and other design features
 """
 from diegame import *
-#import subprocess
 import BlackJack
 
 # currency related variables:
 wallet = int(500)
-account = int(0)
 emer_fund = int(100)
 
 
@@ -83,8 +81,6 @@ def main():
         else:
             main()
     elif response == '2':
-        # If another game is created subprocess will serve to access it
-        # subprocess.run(["python", "casino_game.py"])
         print(
             '---Welcome to the Even or Odd Room!---' + '\n' +
             'Guess if the total number that will appear on three cast dice will be Even or Odd.' + '\n' +
@@ -138,7 +134,6 @@ def main():
         else:
             main()
     elif response == '3':
-        # If another game is created subprocess will serve to access it
         print(
             '---Welcome to the BlackJack Room!---' + '\n' +
             'Blank for now.' + '\n' +
@@ -146,7 +141,6 @@ def main():
 
         response2 = input('Buy-in is 25$. Would you like to play? (y/n) ').lower()
         if response2 == 'y':
-            #result = subprocess.run(["python", "BlackJack.py"], text=True, capture_output=True)
             result = BlackJack.main()
             profit = int(50)
             loss = int(25)
@@ -159,10 +153,12 @@ def main():
             elif result == "Lost":
                 wallet -= loss
                 print(f'Wallet: {wallet}$')
+                main()
 
             elif result == "Tie":
                 wallet += 0
                 print(f'Wallet: {wallet}$')
+                main()
 
         elif response2.upper() == 'n':
             main()
