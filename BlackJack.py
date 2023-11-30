@@ -32,7 +32,8 @@ def main():
                    ]
     dealersNumberTotal = 0
     playersNumberTotal = 0
-
+    dealerCards = list()
+    playerCards = list()
     random.shuffle(deckOfCards)
 
     dealerCards1 = deckOfCards.pop()
@@ -40,14 +41,20 @@ def main():
     dealerCards2 = deckOfCards.pop()
     dealersNumberTotal = calculator_cards_total(dealersNumberTotal, dealerCards2)
 
+    dealerCards.append(dealerCards1)
+    dealerCards.append(dealerCards2)
+
     playersCards1 = deckOfCards.pop()
     playersNumberTotal = calculator_cards_total(playersNumberTotal, playersCards1)
     playersCards2 = deckOfCards.pop()
     playersNumberTotal = calculator_cards_total(playersNumberTotal, playersCards2)
 
-    print("Dealers Cards: ", dealerCards1, " ", dealerCards2, " Total number value is ", dealersNumberTotal)
+    playerCards.append(playersCards1)
+    playerCards.append(playersCards2)
 
-    print("Players Cards: ", playersCards1, " ", playersCards2, " Total number Value is ", playersNumberTotal)
+    print("Dealers Cards: ", '  '.join(dealerCards), " Total number value is ", dealersNumberTotal)
+
+    print("Players Cards: ", '  '.join(playerCards), " Total number Value is ", playersNumberTotal)
 
     if dealersNumberTotal == 21 and playersNumberTotal == 21:
         print("Tie Game by both player and dealer having blackjack.")
@@ -69,10 +76,11 @@ def main():
     while hitOrStand != "stand":
 
         if hitOrStand == "hit":
-            playerCards = deckOfCards.pop()
-            print("player next card is ", playerCards)
-            playersNumberTotal = calculator_cards_total(playersNumberTotal, playerCards)
-            print("and the total number value is ", playersNumberTotal, end="\n")
+            playerNewCards = deckOfCards.pop()
+            playersNumberTotal = calculator_cards_total(playersNumberTotal, playerNewCards)
+            playerCards.append(playerNewCards)
+
+            print("Players Cards: ", '  '.join(playerCards), " Total number value is ", playersNumberTotal, end="\n")
 
             if playersNumberTotal > 21:
                 print("Player lost by going pass 21.")
@@ -87,18 +95,21 @@ def main():
 
     while dealersNumberTotal <= 16:
 
-        dealerCards = deckOfCards.pop()
-        print("dealer next card is ", dealerCards)
-        dealersNumberTotal = calculator_cards_total(dealersNumberTotal, dealerCards)
-        print("and the total number value is ", dealersNumberTotal, end="\n")
+        print("Dealer Hit. ", end="\n")
+        dealerNewCards = deckOfCards.pop()
+        dealersNumberTotal = calculator_cards_total(dealersNumberTotal, dealerNewCards)
+        dealerCards.append(dealerNewCards)
+
+        print("Dealers Cards: ", '  '.join(dealerCards), " Total number value is ", dealersNumberTotal, end="\n")
 
         if dealersNumberTotal > 21:
             print("Dealer lost by going pass 21.")
             return "Win"
 
+    print("Dealer Stand")
     if dealersNumberTotal > playersNumberTotal:
         print("Dealer win.")
-        return "Lose"
+        return "Lost"
 
     elif playersNumberTotal > dealersNumberTotal:
         print("Player win.")
