@@ -23,10 +23,12 @@ def main():
     print(f'Your current wallet balance is: {wallet}$')
     print(
         'Please Select from the following areas:' + '\n' +
+        '0. Leave the Casino' + '\n' +
         '1. Dice Game' + '\n' +
         '2. Even or Odd' + '\n' +
         '3. BlackJack')
-    response = input('Choose where to go (1-3): ')
+
+    response = input('Choose where to go (1-3 or 0 to leave): ')
     if response == '1':
         print(
             '---Welcome to the Dice Game Room!---' + '\n' +
@@ -136,7 +138,7 @@ def main():
     elif response == '3':
         print(
             '---Welcome to the BlackJack Room!---' + '\n' +
-            'Blank for now.' + '\n' +
+            'The goal is to get as close to 21 without going over 21. Additionally, the dealer also does it.' + '\n' +
             'Winning the game will double your bet.')
 
         response2 = input('Buy-in is 25$. Would you like to play? (y/n) ').lower()
@@ -165,9 +167,17 @@ def main():
 
         else:
             main()
+
+    elif response == '0':
+        exit()
+
     else:
         print('Invalid Entry Detected')
         main()
+
+
+if __name__ == '__main__':
+    main()
 
 
 if __name__ == '__main__':
